@@ -15,9 +15,9 @@ pictureBuilder($imgUrl, $alt, $params);
 
 ```
 $params = array(
-    'thumbWidth'  => array( 600,    750,     200,    400,    500),
-    'thumbHeight' => array(  160,    250,    400,     800,     1000),
-    'breakPoints' => array(     500,    750,    1000,     1630),
+    'thumbWidth'  => array( 500, 750, 1000, 1600, 2000),
+    'thumbHeight' => array( 250, 375, 500, 800, 1000),
+    'breakPoints' => array( 500, 750, 1000, 1600),
     'quality'     => 60
 );
 ```
