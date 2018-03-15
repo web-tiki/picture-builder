@@ -7,4 +7,4 @@ It relies on the imagick php image library.
 
     pictureBuilder($imgUrl, $alt, $params);
 
-
+$imgUrl is the main image all the thumbnails should be generated from
