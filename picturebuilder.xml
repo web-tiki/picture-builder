@@ -45,6 +45,8 @@
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_content_picturebuilder.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_content_picturebuilder.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_content_picturebuilder.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_content_picturebuilder.sys.ini</language>
 	</languages>
 	<updateservers>
 		<server type="extension" priority="1" name="Picture builder Update Server at GitHub"><![CDATA[https://web-tiki.github.io/picture-builder/updateserver.xml]]></server>
