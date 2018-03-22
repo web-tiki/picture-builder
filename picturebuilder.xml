@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="0.0.1" type="plugin" group="content">
-	<name>PLG_PICTUREBUILDER_NAME</name>
+<extension version="3.2" type="plugin" group="content" method="upgrade">
+	<name>Picture builder (by web-tiki)</name>
 	<author>web-tiki</author>
-	<creationDate>september 2017</creationDate>
+	<creationDate>march 2018</creationDate>
 	<copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE</license>
 	<authorEmail>contact@web-tiki.com</authorEmail>
 	<authorUrl>https://web-tiki.com</authorUrl>
-	<version>1.0</version>
+	<version>0.0.1</version>
 	<description>PLG_PICTUREBUILDER_DESC</description>
-	<files>
-		<folder>language</folder>
-		<filename plugin="picturebuilder">picturebuilder.php</filename>
-		<filename>params.php</filename>
-		<filename>index.html</filename>
-	</files>
 	<config>
 		<fields name="params">
-
 			<fieldset name="basic">
 				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Breakpoints and thumbnail sizes&lt;/h2&gt;" />
 				<field name="thumb_XS"   type="text" description="XS thumbnail width"   label="Thumb XS"   default="450"  />
@@ -29,12 +22,12 @@
 				<field name="thumb_L"    type="text" description="L thumbnail width"    label="Thumb L"    default="1500" />
 				<field name="breakpont_4" type="text" description="Breakpoint 4"        label="Breakpoint 4" default="1500" />
 				<field name="thumb_XL"   type="text" description="XL thumbnail width"   label="Thumb XL"   default="2000"	/>
-
-				<field type="spacer" name="options" label="&lt;h2&gt;Options&lt;/h2&gt;" />
+			</fieldset>
+			<fieldset name="advanced">
 				<field name="quality"   type="text" description="Quality of the thumbnails"   label="Quality"   default="80"	/>
 				<field name="scalemethod" type="list" default="2" label="Scale method" description="Scale method to use to build the thumbnails">
-  				<option value="2">SCALE_INSIDE</option>
-  				<option value="3">SCALE_OUTSIDE</option>
+  					<option value="2">SCALE_INSIDE</option>
+  					<option value="3">SCALE_OUTSIDE</option>
 					<option value="1">SCALE_FILL</option>
 					<option value="4">CROP</option>
 					<option value="5">CROP_RESIZE</option>
@@ -43,6 +36,16 @@
 			</fieldset>
 		</fields>
 	</config>
+	<files>
+		<folder>language</folder>
+		<filename plugin="picturebuilder">picturebuilder.php</filename>
+		<filename>params.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_picturebuilder.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_picturebuilder.sys.ini</language>
+	</languages>
 	<updateservers>
 		<server type="extension" priority="1" name="Picture builder Update Server at GitHub"><![CDATA[https://web-tiki.github.io/picture-builder/updateserver.xml]]></server>
 	</updateservers>
