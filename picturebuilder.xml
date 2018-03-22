@@ -8,7 +8,7 @@
 	<authorEmail>contact@web-tiki.com</authorEmail>
 	<authorUrl>https://web-tiki.com</authorUrl>
 	<version>1.0</version>
-	<description>Adds a function that builds a picture element for responsive images</description>
+	<description>Create thumbnails and builds a picture element for responsive images</description>
 	<files>
 		<filename plugin="picturebuilder">picturebuilder.php</filename>
 		<filename>index.html</filename>
@@ -39,7 +39,9 @@
 					<option value="6">SCALE_FIT</option>
 				</field>
 			</fieldset>
-
 		</fields>
 	</config>
+	<updateservers>
+		<server type="extension" priority="1" name="Picture builder Update Server at GitHub"><![CDATA[http://web-tiki.github.io/picture-builder/updateserver.xml]]></server>
+	</updateservers>
 </extension>
