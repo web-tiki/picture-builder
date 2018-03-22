@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="0.0.1" type="plugin" group="content">
-	<name>Content - Picture builder</name>
+	<name>PLG_PICTUREBUILDER_NAME</name>
 	<author>web-tiki</author>
 	<creationDate>september 2017</creationDate>
 	<copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
-	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<license>GNU General Public License version 2 or later; see LICENSE</license>
 	<authorEmail>contact@web-tiki.com</authorEmail>
 	<authorUrl>https://web-tiki.com</authorUrl>
 	<version>1.0</version>
-	<description>Create thumbnails and builds a picture element for responsive images</description>
+	<description>PLG_PICTUREBUILDER_DESC</description>
 	<files>
 		<filename plugin="picturebuilder">picturebuilder.php</filename>
 		<filename>index.html</filename>
