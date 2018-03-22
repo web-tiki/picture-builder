@@ -14,6 +14,6 @@
         </downloads>
         <maintainer>web-tiki</maintainer>
         <maintainerurl>https://web-tiki.com</maintainerurl>
-        <targetplatform name="joomla" version=".*"/>
+        <targetplatform name="joomla" version="3.[6789]" />
     </update>
 </updates>
