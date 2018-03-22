@@ -17,13 +17,14 @@ class plgContentPicturebuilder extends JPlugin {
     // check if the original image exists
     if (!file_exists($imgUrl)) {
       echo "<script>console.log( 'Cannot find : " . htmlspecialchars($imgUrl) . "' );</script>";
-      return false; hgsdh
+      return false;
     }
 
     // if new paramters are passed in the function use those. Otherwise use the ones defined in the backend (see plugin picturebuilder options).
     if ($customParameters) {
       // Set the thumb sizes
       if ($customParameters == 1) {
+        // With adaptive height keeping the aspect original ratio of image
         $PicturebuilderParams = array(
           'thumbWidth'  => array( 600,    750,     1200,    1480,    2001),
           'thumbHeight' => null,
@@ -31,6 +32,7 @@ class plgContentPicturebuilder extends JPlugin {
           'quality'     => 70
         );
       } elseif ($customParameters == 2) {
+        // crop image to the defined width and height
         $PicturebuilderParams = array(
           'thumbWidth'  => array( 600,    750,     200,    400,    500),
           'thumbHeight' => array(  160,    250,    400,     800,     1000),
@@ -110,19 +112,24 @@ class plgContentPicturebuilder extends JPlugin {
       if (!file_exists($thumbDir)) {
         mkdir($thumbDir, 0777, true);
       }
-
-      foreach ($thumbWidths as $i => $thumbWidth) {
-        $imagick = new imagick($imgUrl);
-        $thumbHeight = $thumbHeights[$i];
-        if($crop) {
-          $imagick->cropThumbnailImage($thumbWidth,$thumbHeight);
-        } else {
-          $imagick->resizeImage($thumbWidth,$thumbHeight,imagick::FILTER_LANCZOS, 1, true);
+      // Check if imagick is installed
+      if (extension_loaded('imagick')) {
+        foreach ($thumbWidths as $i => $thumbWidth) {
+          $imagick = new imagick($imgUrl);
+          $thumbHeight = $thumbHeights[$i];
+          if($crop) {
+            $imagick->cropThumbnailImage($thumbWidth,$thumbHeight);
+          } else {
+            $imagick->resizeImage($thumbWidth,$thumbHeight,imagick::FILTER_LANCZOS, 1, true);
+          }
+          $imagick->setImageCompressionQuality($thumbQuality);
+          $imagick->writeImage($thumbPaths[$i]);
+          $imagick->clear();
+          $imagick->destroy();
         }
-        $imagick->setImageCompressionQuality($thumbQuality);
-        $imagick->writeImage($thumbPaths[$i]);
-        $imagick->clear();
-        $imagick->destroy();
+      } else {
+        // TODO : if imagick isn't installed, use GD library to resize and crop thumbnails
+        echo 'No imagick here';
       }
     }
     ?>
