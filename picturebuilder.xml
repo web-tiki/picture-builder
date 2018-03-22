@@ -42,6 +42,6 @@
 		</fields>
 	</config>
 	<updateservers>
-		<server type="extension" priority="1" name="Picture builder Update Server at GitHub"><![CDATA[http://web-tiki.github.io/picture-builder/updateserver.xml]]></server>
+		<server type="extension" priority="1" name="Picture builder Update Server at GitHub">https://web-tiki.github.io/picture-builder/updateserver.xml</server>
 	</updateservers>
 </extension>
