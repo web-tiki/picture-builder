@@ -47,7 +47,7 @@ This is an example HTML output :
 - Jommla! >= 3.2
 - Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet)
 
-## Help neede to:
+## Help needed to:
 - Make a fallback to the GD library
 -------------
 
