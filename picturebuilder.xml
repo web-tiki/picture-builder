@@ -12,6 +12,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
+				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Main options here&lt;/h2&gt;" />
 				<field name="thumb_params"
 					type="repeatable"
 					icon="list"
@@ -58,27 +59,7 @@
 
 
 
-				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Breakpoints and thumbnail sizes&lt;/h2&gt;" />
-				<field name="thumb_XS"   type="text" description="XS thumbnail width"   label="Thumb XS"   default="450"  />
-				<field name="breakpont_1" type="text" description="Smallest breakpoint" label="Breakpoint 1" default="450"  />
-				<field name="thumb_S"    type="text" description="S thumbnail width"    label="Thumb S"    default="600"  />
-				<field name="breakpont_2" type="text" description="Breakpoint 2"        label="Breakpoint 2" default="600"  />
-				<field name="thumb_M"    type="text" description="M thumbnail width"    label="Thumb M"    default="1000"  />
-				<field name="breakpont_3" type="text" description="Breakpoint 3"        label="Breakpoint 3" default="1000" />
-				<field name="thumb_L"    type="text" description="L thumbnail width"    label="Thumb L"    default="1500" />
-				<field name="breakpont_4" type="text" description="Breakpoint 4"        label="Breakpoint 4" default="1500" />
-				<field name="thumb_XL"   type="text" description="XL thumbnail width"   label="Thumb XL"   default="2000"	/>
-			</fieldset>
-			<fieldset name="advanced">
-				<field name="quality"   type="text" description="Quality of the thumbnails"   label="Quality"   default="80"	/>
-				<field name="scalemethod" type="list" default="2" label="Scale method" description="Scale method to use to build the thumbnails">
-  					<option value="2">SCALE_INSIDE</option>
-  					<option value="3">SCALE_OUTSIDE</option>
-					<option value="1">SCALE_FILL</option>
-					<option value="4">CROP</option>
-					<option value="5">CROP_RESIZE</option>
-					<option value="6">SCALE_FIT</option>
-				</field>
+				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Other options here&lt;/h2&gt;" />
 			</fieldset>
 		</fields>
 	</config>

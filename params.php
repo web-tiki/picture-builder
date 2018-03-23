@@ -54,3 +54,7 @@ if ($customParameters) {
       'quality' => $PicturebuilderParams['quality']
     );
   }
+/*
+  $plgPicturebuilder = JPluginHelper::getPlugin('content', 'picturebuilder');
+  echo '<pre>'; print_r($plgPicturebuilder); echo '</pre>';
+*/
