@@ -7,11 +7,57 @@
 	<license>GNU General Public License version 2 or later; see LICENSE</license>
 	<authorEmail>contact@web-tiki.com</authorEmail>
 	<authorUrl>https://web-tiki.com</authorUrl>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<description>PLG_PICTUREBUILDER_DESC</description>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
+				<field name="thumb_params"
+					type="repeatable"
+					icon="list"
+					description="Choose the thumbnail parameters"
+					label="Thumbnail paramters"
+					default='{"id":["0"],
+						"info":["Tell me where"],
+						"widths":["600,750,1200,1480,2001"],
+						"heights":["600,750,1200,1480,2001"],
+						"breakpoints":["450,650,950,1500"],
+						"quality":["65"]}'>
+					<fieldset hidden="true" name="thumb_params_modal" repeat="true">
+						<field name="id"
+							label="Params ID"
+							type="number"
+							default="0"
+							required="true"
+							min="0" step="1"/>
+						<field name="info"
+							label="Information"
+							type="text"
+							default="Tell me where"/>
+						<field name="widths"
+							label="Widths"
+							type="text" 
+							default="600,750,1200,1480,2001"
+							required="true" />
+						<field name="heights"
+							label="Heights"
+							type="text" />
+						<field name="breakpoints"
+							label="Breakpoints"
+							type="text" 
+							default="450,650,950,1500"
+							required="true" />
+						<field name="quality"
+							label="Quality"
+							type="number"
+							default="65"
+							required="true"
+							min="0" step="1" />
+					</fieldset>
+				</field>
+
+
+
 				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Breakpoints and thumbnail sizes&lt;/h2&gt;" />
 				<field name="thumb_XS"   type="text" description="XS thumbnail width"   label="Thumb XS"   default="450"  />
 				<field name="breakpont_1" type="text" description="Smallest breakpoint" label="Breakpoint 1" default="450"  />

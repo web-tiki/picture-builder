@@ -42,6 +42,13 @@ This is an example HTML output :
     <img src="image-8-2001x1335q70.jpg" srcset="image-9-3001x2002q70.jpg 2x,image-8-2001x1335q70.jpg" alt="This is a test image" width="2001" height="1335">
 </picture>
 ```
+
+## Requirements
+- Jommla! >= 3.2
+- Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet)
+
+## Help neede to:
+- Make a fallback to the GD library
 -------------
 
 Created by [web-tiki](https://web-tiki.com)
