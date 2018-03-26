@@ -11,99 +11,91 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class plgContentPicturebuilder extends JPlugin {
+class PlgContentPictureBuilder extends JPlugin {
+  
+  public function buildPicture($imageParams) {
 
-  public static function picturebuilder($imgUrl, $imageAlt, $customParameters) {
-    // check if the original image exists
-    if (!file_exists($imgUrl)) {
-      echo "<script>console.log( 'Cannot find : " . htmlspecialchars($imgUrl) . "' );</script>";
+    // Get the original image parameters
+    $imageUrl = $imageParams['url'];
+    if (!file_exists($imageUrl)) {
+      echo "<script>console.log( 'Cannot find : " . htmlspecialchars($imageUrl) . "' );</script>";
       return false;
     }
 
-    include 'params.php';
+    $imageAlt = $imageParams['alt'];
+    $thumbParams = $imageParams['thumbParams'];
+
+    // if the parameters aren't set in the event call, 
+    // include the parameter helper to generate them from the plugin (backend) parameters
+    if(!is_array($thumbParams)) {
+      include 'helpers/params.php';
+    }
 
     // Get the original image info and define ratio for HD images
-    $imgInfo = pathinfo($imgUrl);
-    $imgName = $imgInfo['filename'];
-    $imgExtension = '.' . $imgInfo['extension'];
-    $thumbDir = 'image_thumbs/' . $imgInfo['dirname'];
-    $upscale_HD_images = 1.5;
-    $thumbQuality = $PicturebuilderParams['quality'];
-    $breakPoints = $PicturebuilderParams['breakPoints'];
+    // TODO maybe better to use the imagick library to get the original image info + size    
+    $imageInfo = pathinfo($imageUrl);
+    $imageName = $imageInfo['filename'];
+    $imageExtension = '.' . $imageInfo['extension'];
+    $thumbDir = 'image_thumbs/' . $imageInfo['dirname'];
+    $upscaleHDthumbs = 1.5;
+    list($imageWidth, $imageHeight) = getimagesize($imageUrl);
+    $thumbQuality = $thumbParams['quality'];
+    $breakPoints = $thumbParams['breakPoints'];
+
     // Build the Thumb width array
-    $paramWidths = $PicturebuilderParams['thumbWidth'];
+    $paramWidths = $thumbParams['thumbWidths'];
     $thumbWidths = array();
-    foreach ($paramWidths as $i => $paramWidth) {
+    foreach ($paramWidths as $paramWidth) {
       array_push($thumbWidths, $paramWidth);
-      array_push($thumbWidths, floor($paramWidth * $upscale_HD_images));
+      array_push($thumbWidths, floor($paramWidth * $upscaleHDthumbs));
     }
+
     // Build the thumb height array
-    $paramHeights = $PicturebuilderParams['thumbHeight'];
+    $paramHeights = $thumbParams['thumbHeights'];
     $thumbHeights = array();
-    list($XLwidth, $XLheight) = getimagesize($imgUrl);
-    if ($paramHeights) {
+    if ($paramHeights[0]) {
       $crop = true;
-      // If height is specified get the width and height of image from params
+      // If thumb heights are specified get the width and height of image from params
       foreach ($paramHeights as $paramHeight) {
         array_push($thumbHeights, $paramHeight);
-        array_push($thumbHeights, floor($paramHeight * $upscale_HD_images));
+        array_push($thumbHeights, floor($paramHeight * $upscaleHDthumbs));
       }
     } else {
       $crop = false;
-      // If no height is specified get the width and height of image form original file
+      // If no heights are specified get the width and height of thumbnails from original image aspect ratio
+      $imageAspectRatio = $imageHeight/$imageWidth;
       foreach ($thumbWidths as $thumbWidth) {
-        $thumbHeight = floor($thumbWidth*$XLheight/$XLwidth);
+        $thumbHeight = floor($thumbWidth*$imageAspectRatio);
         array_push($thumbHeights, $thumbHeight);
       }
     }
+
     // Create the thumb paths array
     $thumbPaths = array();
-    foreach ($thumbWidths as $i => $thumbWidth) {
-      $thumbHeight = $thumbHeights[$i];
-      $thumbPath = $thumbDir . '/' . $imgName . '-' . $i . '-' . $thumbWidth . 'x' . $thumbHeight . 'q' . $thumbQuality . $imgExtension;
+    foreach ($thumbWidths as $i => $thumbWidth) {      
+      $thumbPath = $thumbDir . '/' . $imageName . '-' . $i . '-' . $thumbWidth . 'x' . $thumbHeights[$i] . 'q' . $thumbQuality . $imageExtension;
       array_push($thumbPaths,$thumbPath);
     }
+    
+    
     // Generate thumbnails if the number 8 doesn't exist
-    if(!file_exists($thumbPaths[8])){
+    if(!file_exists($thumbPaths[8])){      
       // Create folders if they don't exixt
-      if (!file_exists($thumbDir)) {
-        mkdir($thumbDir, 0777, true);
-      }
+      if (!file_exists($thumbDir)) { mkdir($thumbDir, 0777, true); }
       // Check if imagick is installed
       if (extension_loaded('imagick')) {
-        foreach ($thumbWidths as $i => $thumbWidth) {
-          $imagick = new imagick($imgUrl);
-          $thumbHeight = $thumbHeights[$i];
-          if($crop) {
-            $imagick->cropThumbnailImage($thumbWidth,$thumbHeight);
-          } else {
-            $imagick->resizeImage($thumbWidth,$thumbHeight,imagick::FILTER_LANCZOS, 1, true);
-          }
-          $imagick->setImageCompressionQuality($thumbQuality);
-          $imagick->writeImage($thumbPaths[$i]);
-          $imagick->clear();
-          $imagick->destroy();
-        }
+        include 'helpers/imagick_thumbnail_generator.php';
       } else {
         // TODO : if imagick isn't installed, use GD library to resize and crop thumbnails
         echo 'No imagick here';
+        return false;
       }
     }
-    ?>
-    <picture>
-      <source  srcset="<?php echo $thumbPaths[9] . ' 2x,' . $thumbPaths[8]; ?>"  media="(min-width: <?php echo $breakPoints[3]; ?>px)"/>
-      <source  srcset="<?php echo $thumbPaths[7] . ' 2x,' . $thumbPaths[6]; ?>"  media="(min-width: <?php echo $breakPoints[2]; ?>px) and (max-width: <?php echo $breakPoints[3] - 1; ?>px)"/>
-      <source  srcset="<?php echo $thumbPaths[5] . ' 2x,' . $thumbPaths[4]; ?>"  media="(min-width: <?php echo $breakPoints[1]; ?>px) and (max-width: <?php echo $breakPoints[2] - 1; ?>px)"/>
-      <source  srcset="<?php echo $thumbPaths[3] . ' 2x,' . $thumbPaths[2]; ?>"  media="(min-width: <?php echo $breakPoints[0]; ?>px) and (max-width: <?php echo $breakPoints[1] - 1; ?>px)"/>
-      <source  srcset="<?php echo $thumbPaths[1] . ' 2x,' . $thumbPaths[0]; ?>"  media="(max-width: <?php echo $breakPoints[0] - 1; ?>px)"/>
-      <img src="<?php echo $thumbPaths[8]; ?>"
-        srcset="<?php echo $thumbPaths[9] . ' 2x,' . $thumbPaths[8]; ?>"
-        alt="<?php echo $imageAlt; ?>"
-        width="<?php echo $thumbWidths[8]; ?>"
-        height="<?php echo $thumbHeights[8]; ?>"
-      />
-    </picture>
-    <?php
-  }
+
+    // Call the plugin layout to return the picture element
+    $path = JPluginHelper::getLayoutPath($this->_type, $this->_name);
+    include $path;
+
+ }
 }
 ?>

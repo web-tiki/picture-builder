@@ -5,31 +5,46 @@ The function uses parameteres to set:
 - the heights of the thumbnails
 - the breakpoints 
 - the thumbnail compression quality.
+
 It relies on the imagick php image library.
 
-## Function usage
+## Responsive image plugin usage
+The plugin can be called in template overrides. It is fired by a custom event: `buildPicture`.   
+Here is an example:
 
 ```
-pictureBuilder($imgUrl, $alt, $params);
+$dispatcher = JDispatcher::getInstance();
+$dispatcher->trigger('buildPicture', $params);
 ```
 
-`$imgUrl` is the main image all the thumbnails should be generated from  
-`$alt` is the alternative texte for the image  
-`$params` is an array of parameters that define the sizes of the thumbnails, the breakpoints and the compression quality of the images. It looks like this :
+`$params` is an array. It looks like this :
+
 
 ```
-$params = array(
-    'thumbWidth'  => array( 500, 750, 1000, 1600, 2000),
-    'thumbHeight' => array( 250, 375, 500, 800, 1000),
-    'breakPoints' => array( 500, 750, 1000, 1600),
-    'quality'     => 60
+$params = array (
+    '' => array( 
+        'url' => $imgUrl2,
+        'alt' => $alt,
+        'thumbParams' => array(
+            'thumbWidths'  => array( 600,    750,     1200,    1480,    2001),
+            'thumbHeights' => array( 600,    750,     1200,    1480,    2001),
+            'breakPoints' => array(     450,     650,    950,    1500),
+            'quality'     => 70
+        )
+    )
 );
 ```
-The thumbHeight can be `null` if you only need to specify the width of the thumbnails and keep the aspect ratio of the original image.
-Default parameters can be set in the backend.
+
+
+`url` is the original image all the thumbnails should be generated from  
+`alt` is the alternative texte for the image  
+`thumbParams` defines the sizes of thumbnails, breakpoints and tumbnail compression. It is either an array of sizes as shown above, either an id or string that refers to parameters set in the plugin options in backend.
+
+
+The thumbHeights can be `null` if you only need to specify the width of the thumbnails and keep the aspect ratio of the original image.
 
 ## Picture element output
-The plugin outputs a picture element for **responsive images**. 
+The plugin outputs a picture element for **responsive images**.   
 This is an example HTML output :
 
 ```
@@ -43,12 +58,20 @@ This is an example HTML output :
 </picture>
 ```
 
-## Requirements
+## Requirements and warning
 - Jommla! >= 3.2
-- Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet)
+- Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet (see "help need" section)
+- This isn't a plug and play plugin yet. You need to know about template overrides to use it and call the apropriate function to build the responsive picture element.
+- The plugin generates thumbnails but it can't delete them
 
-## Help needed to:
+
+## Issues end help needed to:
 - Make a fallback to the GD library
+- Redesign the plugin to let the user specify the number of thumbnails and breakpoints
+- Find a solution to update the thumbnails if original image changes but keeps the same size (width and height)
+- Delete the thumbnails when the original image changes or is deleted
+- Why does the parameters need to be nested in a second level of array when the event is called?
+- Joomla 4 will imprement the [event packahge](https://github.com/joomla-framework/event/tree/2.0-dev). Event call should be changed then.
 -------------
 
 Created by [web-tiki](https://web-tiki.com)

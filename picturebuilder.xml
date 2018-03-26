@@ -29,7 +29,7 @@
 							label="Params ID"
 							type="number"
 							default="0"
-							required="true"
+							required="false"
 							min="0" step="1"/>
 						<field name="info"
 							label="Information"
@@ -39,7 +39,7 @@
 							label="Widths"
 							type="text" 
 							default="600,750,1200,1480,2001"
-							required="true" />
+							required="false" />
 						<field name="heights"
 							label="Heights"
 							type="text" />
@@ -47,12 +47,12 @@
 							label="Breakpoints"
 							type="text" 
 							default="450,650,950,1500"
-							required="true" />
+							required="false" />
 						<field name="quality"
 							label="Quality"
 							type="number"
 							default="65"
-							required="true"
+							required="false"
 							min="0" step="1" />
 					</fieldset>
 				</field>
@@ -64,9 +64,10 @@
 		</fields>
 	</config>
 	<files>
+		<folder>helpers</folder>
 		<folder>language</folder>
+		<folder>tmpl</folder>
 		<filename plugin="picturebuilder">picturebuilder.php</filename>
-		<filename>params.php</filename>
 		<filename>index.html</filename>
 	</files>
 	<languages>
