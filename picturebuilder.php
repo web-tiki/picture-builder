@@ -83,12 +83,10 @@ class PlgContentPictureBuilder extends JPlugin {
       // Create folders if they don't exixt
       if (!file_exists($thumbDir)) { mkdir($thumbDir, 0777, true); }
       // Check if imagick is installed
-      if (extension_loaded('imagick')) {
+      if (extension_loaded('imagick') && $this->params['forceGD'] == false) {
         include 'helpers/imagick_thumbnail_generator.php';
       } else {
-        // TODO : if imagick isn't installed, use GD library to resize and crop thumbnails
-        echo 'No imagick here';
-        return false;
+        include 'helpers/gd_thumbnail_generator.php';
       }
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.2" type="plugin" group="content" method="upgrade">
-	<name>Picture builder (by web-tiki)</name>
+	<name>Picture builder</name>
 	<author>web-tiki</author>
 	<creationDate>march 2018</creationDate>
 	<copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
@@ -12,7 +12,15 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Main options here&lt;/h2&gt;" />
+				<field name="forceGD" type="radio" default="0" 
+					label="Force GD" 
+					class="btn-group btn-group-yesno"
+					description="If imagick is also available on your server, you can force the use of the GD library to handle the thumbnail generration"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
 				<field name="thumb_params"
 					type="repeatable"
 					icon="list"
@@ -59,7 +67,6 @@
 
 
 
-				<field type="spacer" name="breakpoints" label="&lt;h2&gt;Other options here&lt;/h2&gt;" />
 			</fieldset>
 		</fields>
 	</config>
