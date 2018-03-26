@@ -65,7 +65,6 @@
 	</config>
 	<files>
 		<folder>helpers</folder>
-		<folder>language</folder>
 		<folder>tmpl</folder>
 		<filename plugin="picturebuilder">picturebuilder.php</filename>
 		<filename>index.html</filename>
