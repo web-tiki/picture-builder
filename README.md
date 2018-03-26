@@ -76,6 +76,7 @@ This is an example HTML output :
 - Delete the thumbnails when the original image changes or is deleted
 - Why does the parameters need to be nested in a second level of array when the event is called?
 - Joomla 4 will imprement the [event package](https://github.com/joomla-framework/event/tree/2.0-dev). Event call should be changed then.
+- Errors when there are a lot of images to generate at the same time
 -------------
 
 Created by [web-tiki](https://web-tiki.com)
