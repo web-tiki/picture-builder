@@ -42,7 +42,7 @@ class PlgContentPictureBuilder extends JPlugin {
     $imageInfo = pathinfo($imageUrl);
     $imageName = $imageInfo['filename'];
     $imageExtension = '.' . $imageInfo['extension'];
-    $thumbDir = 'image_thumbs/' . $imageInfo['dirname'];
+    $thumbDir = $this->params['thumbFolder'] . $imageInfo['dirname'];
     $upscaleHDthumbs = 1.5;
     list($imageWidth, $imageHeight) = getimagesize($imageUrl);
     $thumbQuality = $thumbParams['quality'];

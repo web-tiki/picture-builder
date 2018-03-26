@@ -12,6 +12,12 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
+				<field name="thumbFolder" type="text" default="image_thumbs/"
+					label="Folder to store the thumbnails"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 				<field name="forceGD" type="radio" default="0" 
 					label="Force GD" 
 					class="btn-group btn-group-yesno"
