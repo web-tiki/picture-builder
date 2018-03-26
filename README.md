@@ -37,9 +37,12 @@ $params = array (
 
 
 `url` is the original image all the thumbnails should be generated from  
-`alt` is the alternative texte for the image  
+`alt` is the alternative text for the image  
 `thumbParams` defines the sizes of thumbnails, breakpoints and tumbnail compression. It is either an array of sizes as shown above, either an id or string that refers to parameters set in the plugin options in backend.
 
+At this point, the thulb widths and heights must have 5 values and there must be 4 breakpoints. The plugin generates 10 thumbnails :
+- 5 thumbnails with the specified sizes
+- 5 thumbnails with these sizes multiplied by 1.5 for HD images (to be displayed on screens with a higher pixel ratio)
 
 The thumbHeights can be `null` if you only need to specify the width of the thumbnails and keep the aspect ratio of the original image.
 
@@ -63,6 +66,7 @@ This is an example HTML output :
 - Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet (see "help need" section)
 - This isn't a plug and play plugin yet. You need to know about template overrides to use it and call the apropriate function to build the responsive picture element.
 - The plugin generates thumbnails but it can't delete them
+- only tested on `.png` and `.jpeg` images but it should work on many more extensions (imagick supports a lot)
 
 
 ## Issues end help needed to:
@@ -71,7 +75,7 @@ This is an example HTML output :
 - Find a solution to update the thumbnails if original image changes but keeps the same size (width and height)
 - Delete the thumbnails when the original image changes or is deleted
 - Why does the parameters need to be nested in a second level of array when the event is called?
-- Joomla 4 will imprement the [event packahge](https://github.com/joomla-framework/event/tree/2.0-dev). Event call should be changed then.
+- Joomla 4 will imprement the [event package](https://github.com/joomla-framework/event/tree/2.0-dev). Event call should be changed then.
 -------------
 
 Created by [web-tiki](https://web-tiki.com)
