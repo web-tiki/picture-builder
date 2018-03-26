@@ -11,24 +11,22 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+use Joomla\Image\Image;
+
 foreach ($thumbWidths as $i => $thumbWidth) {
-
-    echo 'GD will be triggered here';
-    $gdimage = new Image();
-
-/*
-
-    $imagick = new imagick($imageUrl);
+    
+    $gdImage = new Image($imageUrl);
     $thumbHeight = $thumbHeights[$i];
     if($crop) {
-        $imagick->cropThumbnailImage($thumbWidth,$thumbHeight);
+        $gdImage->cropResize($thumbWidth,$thumbHeight);
     } else {
-        $imagick->resizeImage($thumbWidth,$thumbHeight,imagick::FILTER_LANCZOS, 1, true);
+        $gdImage->resize($thumbWidth,$thumbHeight);
     }
-    $imagick->setImageCompressionQuality($thumbQuality);
-    $imagick->writeImage($thumbPaths[$i]);
-    $imagick->clear();
-    $imagick->destroy();
-
-*/
+    if ($imageExtension == '.jpg' || $imageExtension == '.jpeg') {
+        echo 'compressed';
+        $gdImage->tofile($thumbPaths[$i], IMAGETYPE_JPEG, array('options' => $thumbQuality));
+    } else {
+        echo 'Not compressed';
+       $gdImage->tofile($thumbPaths[$i]);
+    }
 }

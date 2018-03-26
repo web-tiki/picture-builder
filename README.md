@@ -6,7 +6,7 @@ The function uses parameteres to set:
 - the breakpoints 
 - the thumbnail compression quality.
 
-It relies on the imagick php image library.
+It relies on the imagick or GD php image libraries.
 
 ## Responsive image plugin usage
 The plugin can be called in template overrides. It is fired by a custom event: `buildPicture`.   
@@ -63,14 +63,14 @@ This is an example HTML output :
 
 ## Requirements and warning
 - Joomla! >= 3.2
-- Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet (see "help need" section)
+- Imagick must be installed on your server (A fallback to the GD library has been implemented but see "help need" section to make it better)
 - This isn't a plug and play plugin yet. You need to know about template overrides to use it and call the apropriate function to build the responsive picture element.
 - The plugin generates thumbnails but it can't delete them
 - only tested on `.png` and `.jpeg` images but it should work on many more extensions (imagick supports a lot)
 
 
 ## Issues end help needed to:
-- Make a fallback to the GD library
+- Make a fallback to the GD library (This is done but the compression isn't good, files are huge adn no compression for png files yet)
 - Redesign the plugin to let the user specify the number of thumbnails and breakpoints
 - Find a solution to update the thumbnails if original image changes but keeps the same size (width and height)
 - Delete the thumbnails when the original image changes or is deleted
