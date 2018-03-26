@@ -28,7 +28,13 @@ class PlgContentPictureBuilder extends JPlugin {
     // if the parameters aren't set in the event call, 
     // include the parameter helper to generate them from the plugin (backend) parameters
     if(!is_array($thumbParams)) {
+      $IDerror = true;
       include 'helpers/params.php';
+      // stop here and echo an error in the console if the called ID doesn't match any ID set in the backend
+      if ($IDerror) {
+        echo "<script>console.log( 'Error. Called ID doesnt match any backend parameter ID: " . $thumbParams . " for image " . htmlspecialchars($imageUrl) . " ' );</script>";
+        return false; 
+      }
     }
 
     // Get the original image info and define ratio for HD images
