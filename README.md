@@ -62,7 +62,7 @@ This is an example HTML output :
 ```
 
 ## Requirements and warning
-- Jommla! >= 3.2
+- Joomla! >= 3.2
 - Imagick must be installed on your server (A fallback to the GD library hasn't been implemented yet (see "help need" section)
 - This isn't a plug and play plugin yet. You need to know about template overrides to use it and call the apropriate function to build the responsive picture element.
 - The plugin generates thumbnails but it can't delete them
