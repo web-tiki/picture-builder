@@ -9,9 +9,11 @@ The function uses parameteres to set:
 It relies on the imagick or GD php image libraries.
 
 ## Responsive image plugin usage
-The plugin can be called in template overrides. Here is an example:
+The plugin can be called in template overrides. You also need to trigger the content plugins if it hasen't already been done.   
+Here is an example:
 
 ```
+JPluginHelper::importPlugin('content');
 echo plgContentPicturebuilder::picturebuilder($imageUrl, $altText, $params);
 ```
 ### Function parameters
