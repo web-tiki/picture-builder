@@ -13,15 +13,15 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 // Build the array to use the plugin parameters set in backend the parameters to use are defined by the parameter class set in the plugin backend
-$pluginParams = json_decode($this->params['thumb_params']);
-  
+$pluginParamsTemp1 = json_decode($pluginParams['thumb_params']);
+
 $pluginParamsTemp = [];
-foreach ($pluginParams->id as $i => $i) {
-  $pluginParamsTemp[$pluginParams->id[$i]] =  array(
-    'thumbWidths'  => explode(',',$pluginParams->widths[$i]),
-    'thumbHeights' => explode(',',$pluginParams->heights[$i]),
-    'breakPoints'  => explode(',',$pluginParams->breakpoints[$i]),
-    'quality'      => $pluginParams->quality[$i]
+foreach ($pluginParamsTemp1->id as $i => $i) {
+  $pluginParamsTemp[$pluginParamsTemp1->id[$i]] =  array(
+    'thumbWidths'  => explode(',',$pluginParamsTemp1->widths[$i]),
+    'thumbHeights' => explode(',',$pluginParamsTemp1->heights[$i]),
+    'breakPoints'  => explode(',',$pluginParamsTemp1->breakpoints[$i]),
+    'quality'      => $pluginParamsTemp1->quality[$i]
   );
 }
 

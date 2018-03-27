@@ -9,38 +9,30 @@ The function uses parameteres to set:
 It relies on the imagick or GD php image libraries.
 
 ## Responsive image plugin usage
-The plugin can be called in template overrides. It is fired by a custom event: `buildPicture`.   
-Here is an example:
+The plugin can be called in template overrides. Here is an example:
 
 ```
-$dispatcher = JDispatcher::getInstance();
-$dispatcher->trigger('buildPicture', $params);
+echo plgContentPicturebuilder::picturebuilder($imageUrl, $altText, $params);
 ```
+### Function parameters
 
+`$imageUrl` is the original image all the thumbnails should be generated from.  
+`$altText` is the alternative text for the image.  
 `$params` is an array. It looks like this :
 
 
 ```
-$params = array (
-    '' => array( 
-        'url' => $imgUrl2,
-        'alt' => $alt,
-        'thumbParams' => array(
-            'thumbWidths'  => array( 600,    750,     1200,    1480,    2001),
-            'thumbHeights' => array( 600,    750,     1200,    1480,    2001),
-            'breakPoints' => array(     450,     650,    950,    1500),
-            'quality'     => 70
-        )
-    )
+$params = array(
+    'thumbWidths'  => array( 600, 750, 1200, 1480, 2001),
+    'thumbHeights' => array( 600, 750, 1200, 1480, 2001),
+    'breakPoints'  => array( 450, 650, 950, 1500),
+    'quality'      => 70
 );
 ```
 
+This array defines the sizes of thumbnails, breakpoints and tumbnail compression. It is either an array of sizes as shown above, either an id or string that refers to parameters set in the plugin options in backend.
 
-`url` is the original image all the thumbnails should be generated from  
-`alt` is the alternative text for the image  
-`thumbParams` defines the sizes of thumbnails, breakpoints and tumbnail compression. It is either an array of sizes as shown above, either an id or string that refers to parameters set in the plugin options in backend.
-
-At this point, the thulb widths and heights must have 5 values and there must be 4 breakpoints. The plugin generates 10 thumbnails :
+At this point, the thumb widths and heights must have 5 values and there must be 4 breakpoints. The plugin generates 10 thumbnails :
 - 5 thumbnails with the specified sizes
 - 5 thumbnails with these sizes multiplied by 1.5 for HD images (to be displayed on screens with a higher pixel ratio)
 

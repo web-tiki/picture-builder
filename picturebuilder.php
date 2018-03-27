@@ -13,20 +13,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class PlgContentPictureBuilder extends JPlugin {
   
-  public function buildPicture($imageParams) {
+  
+  public static function picturebuilder($imageUrl, $imageAlt, $thumbParams) {
 
-    // Get the original image parameters
-    $imageUrl = $imageParams['url'];
+    // Check if original image exists
     if (!file_exists($imageUrl)) {
       echo "<script>console.log( 'Cannot find : " . htmlspecialchars($imageUrl) . "' );</script>";
       return false;
     }
 
-    $imageAlt = $imageParams['alt'];
-    $thumbParams = $imageParams['thumbParams'];
+    // Get the params form the plugin backend
+    $plugin = JPluginHelper::getPlugin('content', 'picturebuilder');
+    $pluginParams = new JRegistry($plugin->params);
 
-    // if the parameters aren't set in the event call, 
-    // include the parameter helper to generate them from the plugin (backend) parameters
+    // if the parameters aren't set in the event call, use the parameter helper to generate them from the plugin (backend)
     if(!is_array($thumbParams)) {
       $IDerror = true;
       include 'helpers/params.php';
@@ -42,7 +42,7 @@ class PlgContentPictureBuilder extends JPlugin {
     $imageInfo = pathinfo($imageUrl);
     $imageName = $imageInfo['filename'];
     $imageExtension = '.' . $imageInfo['extension'];
-    $thumbDir = $this->params['thumbFolder'] . $imageInfo['dirname'];
+    $thumbDir = $pluginParams['thumbFolder'] . $imageInfo['dirname'];
     $upscaleHDthumbs = 1.5;
     list($imageWidth, $imageHeight) = getimagesize($imageUrl);
     $thumbQuality = $thumbParams['quality'];
@@ -89,7 +89,7 @@ class PlgContentPictureBuilder extends JPlugin {
       // Create folders if they don't exixt
       if (!file_exists($thumbDir)) { mkdir($thumbDir, 0777, true); }
       // Check if imagick is installed
-      if (extension_loaded('imagick') && $this->params['forceGD'] == 0) {
+      if (extension_loaded('imagick') && $pluginParams['forceGD'] == 0) {
         include 'helpers/imagick_thumbnail_generator.php';
       } else {
         include 'helpers/gd_thumbnail_generator.php';
@@ -97,7 +97,7 @@ class PlgContentPictureBuilder extends JPlugin {
     }
 
     // Call the plugin layout to return the picture element
-    $path = JPluginHelper::getLayoutPath($this->_type, $this->_name);
+    $path = JPluginHelper::getLayoutPath('content', 'picturebuilder');
     include $path;
 
  }
