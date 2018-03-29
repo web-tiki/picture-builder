@@ -15,18 +15,16 @@ use Joomla\Image\Image;
 
 foreach ($thumbWidths as $i => $thumbWidth) {
     
-    $gdImage = new Image($imageUrl);
+    $gdImage = new JImage($imageUrl);
     $thumbHeight = $thumbHeights[$i];
     if($crop) {
-        $gdImage->cropResize($thumbWidth,$thumbHeight);
+        $gdImage = $gdImage->cropResize($thumbWidth,$thumbHeight);
     } else {
-        $gdImage->resize($thumbWidth,$thumbHeight);
+        $gdImage = $gdImage->resize($thumbWidth,$thumbHeight);
     }
     if ($imageExtension == '.jpg' || $imageExtension == '.jpeg') {
-        echo 'compressed';
-        $gdImage->tofile($thumbPaths[$i], IMAGETYPE_JPEG, array('options' => $thumbQuality));
+        $gdImage->toFile($thumbPaths[$i], IMAGETYPE_JPEG, array('options' => $thumbQuality));
     } else {
-        echo 'Not compressed';
-       $gdImage->tofile($thumbPaths[$i]);
+       $gdImage->toFile($thumbPaths[$i]);
     }
 }
